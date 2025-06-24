@@ -1,5 +1,3 @@
-# VIRTUNEXA-Week-2
-
 # 🗳️ Poll Voting App UI
 
 A modern, responsive frontend interface for creating, managing, and participating in polls.
