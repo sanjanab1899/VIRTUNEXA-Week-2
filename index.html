@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-poll"></i>
+                <span>Voting System</span>
+            </div>
+            <button class="btn btn-primary" id="createPollBtn">
+                <i class="fas fa-plus"></i> Create Poll
+            </button>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-tab="active">Active Polls</div>
+            <div class="tab" data-tab="completed">Completed Polls</div>
+        </div>
+
+        <div class="tab-content active" id="active-tab">
+            <div id="activePollsContainer">
+                <!-- Active polls will be dynamically added here -->
+            </div>
+
+            <div class="empty-state" id="activeEmptyState">
+                <i class="fas fa-poll-h"></i>
+                <h3>No Active Polls</h3>
+                <p>There are currently no active polls. Create a new poll to get started.</p>
+                <button class="btn btn-primary" id="createPollEmptyBtn">
+                    <i class="fas fa-plus" ></i> Create Poll
+                </button>
+            </div>
+        </div>
+
+        <div class="tab-content" id="completed-tab">
+            <div id="completedPollsContainer">
+                <!-- Completed polls will be dynamically added here -->
+            </div>
+
+            <div class="empty-state" id="completedEmptyState">
+                <i class="fas fa-archive"></i>
+                <h3>No Completed Polls</h3>
+                <p>Completed polls will appear here once they finish.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Poll Modal -->
+    <div class="modal" id="createPollModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Poll</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <form id="pollForm">
+                <div class="form-group">
+                    <label for="pollTitle" class="form-label">Poll Title</label>
+                    <input type="text" id="pollTitle" class="form-control" placeholder="Enter poll title" required>
+                </div>
+                <div class="form-group">
+                    <label for="pollDescription" class="form-label">Description (Optional)</label>
+                    <textarea id="pollDescription" class="form-control" rows="3" placeholder="Enter poll description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="pollDuration" class="form-label">Duration</label>
+                    <select id="pollDuration" class="form-control" required>
+                        <option value="">Select duration</option>
+                        <option value="1">1 day</option>
+                        <option value="3">3 days</option>
+                        <option value="7">1 week</option>
+                        <option value="30">1 month</option>
+                        <option value="0">No end date</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Poll Options</label>
+                    <div id="pollOptionsContainer">
+                        <div class="participant-item" style="margin-bottom: 0.5rem;">
+                            <input type="text" class="form-control option-input" placeholder="Enter option text" required>
+                            <button type="button" class="action-btn delete remove-option">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                        <div class="participant-item" style="margin-bottom: 0.5rem;">
+                            <input type="text" class="form-control option-input" placeholder="Enter option text" required>
+                            <button type="button" class="action-btn delete remove-option">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-outline" id="addOptionBtn" style="margin-top: 0.5rem;">
+                        <i class="fas fa-plus"></i> Add Option
+                    </button>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-save"></i> Create Poll
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Voter Name Modal -->
+    <div class="modal voter-modal" id="voterModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Cast Your Vote</h3>
+                <button class="modal-close" id="closeVoterModal">&times;</button>
+            </div>
+            <form id="voterForm">
+                <div class="form-group">
+                    <label for="voterName" class="form-label">Your Name</label>
+                    <input type="text" id="voterName" class="form-control" placeholder="Enter your name" required>
+                    <small class="text-muted">This will be used to track your vote</small>
+                </div>
+                <input type="hidden" id="selectedPollId">
+                <input type="hidden" id="selectedOptionIndex">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-vote-yea"></i> Submit Vote
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Poll created successfully!</span>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
